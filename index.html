@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --primary-color: #353956;
+            --secondary-color: #54668E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: verdana;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(var(--primary-color) 0%, var(--primary-color) 130px, #ccc 130px, #ccc 100%);
+        }
+
+        .container {
+            display: flex;
+            position: relative;
+            width: 90%;
+            max-width: 1396px;
+            height: calc(100vh - 100px);
+            background-color: #fff;
+            box-shadow: 0px 1px 5px #444;
+        }
+
+        .container .leftSide {
+            position: relative;
+            flex: 30%;
+            background: #fff;
+            border-right: 1px solid #a0a0a8;
+        }
+
+        .container .rightSide {
+            position: relative;
+            flex: 50%;
+            background: #eee;
+        }
+
+        .container .rightSide::before {
+
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(https://cdn5.vectorstock.com/i/1000x1000/18/69/birds-gulls-black-silhouette-on-white-background-vector-4461869.jpg);
+            opacity: 0.06;
+        }
+
+        .header {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background-color: #ededed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 15px;
+
+        }
+
+        .userimg {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+        }
+
+        .nav_icons {
+            display: flex;
+
+        }
+
+        .nav_icons li {
+            list-style: none;
+            cursor: pointer;
+            color: #333;
+            font-size: 1.2rem;
+            display: flex;
+            padding: 0.4rem;
+        }
+
+        .search_chat {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            background: #f6f6f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .search_chat div {
+            width: 100%;
+
+        }
+
+        .search_chat div input {
+            width: 100%;
+            outline: none;
+            border: none;
+            background: #fff;
+            padding: 6px;
+            height: 38px;
+            border-radius: 30px;
+            font-size: 1rem;
+            padding-left: 27px;
+            /* text-align: center; */
+
+        }
+
+        .search_chat div input::placeholder {
+            color: var(--primary-color);
+        }
+
+        .search_chat div ion-icon {
+            position: absolute;
+            left: 5px;
+            top: 17px;
+            font-size: 1.2rem;
+        }
+
+        .chat_list {
+            position: relative;
+            height: calc(100% - 110px);
+            overflow-y: auto;
+            color: #444;
+
+
+        }
+
+        .chat_list .block {
+            position: relative;
+            width: 100%;
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+
+        }
+
+
+        .chat_list .active {
+            background: rgb(186, 200, 250);
+        }
+
+        .chat_list .block:hover {
+            background-color: rgb(226, 228, 239);
+        }
+
+        .chat_list .block .imgbx {
+            position: relative;
+            min-width: 45px;
+            height: 45px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin-right: 10px;
+
+        }
+
+        .chat_list .block .details {
+            position: relative;
+            width: 100%;
+
+        }
+
+        .chat_list .block .details .list_head {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+
+
+        }
+
+        .chat_list .block .details .list_head h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111;
+            padding-left: 4px;
+        }
+
+        .chat_list .block .details .list_head .time {
+            font-size: .7rem;
+            color: #aaa;
+        }
+
+        .chat_list .block.unread .list_head .time {
+            color: var(--primary-color);
+        }
+
+        .message_p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .message_p p {
+            color: #534f4f;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            font-size: .9rem;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+        .message_p b {
+            background: var(--primary-color);
+            color: #fff;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .64rem;
+        }
+
+        .img_text {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .img_text h4 {
+            font-weight: 500;
+            line-height: 1.2rem;
+            margin-left: 15px;
+        }
+
+        .img_text h4 span {
+            font-size: .8em;
+            color: green;
+        }
+
+        /* chat box */
+        .chat_box {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 140px);
+            padding: 50px;
+            overflow-y: auto;
+
+
+        }
+
+        .message {
+            position: relative;
+            display: flex;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .message p {
+            position: relative;
+            right: 0;
+            text-align: right;
+            max-width: 60%;
+            padding: 12px;
+            background: rgb(186, 200, 250);
+            border-radius: 10px;
+            font-size: .9rem;
+
+        }
+
+        .message p::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -12px;
+            width: 20px;
+            height: 10px;
+            background: rgb(186, 200, 250);
+
+        }
+
+        .message p span {
+            display: block;
+            margin-top: 5px;
+            font-size: .8em;
+            opacity: .5;
+
+        }
+
+        .my_message {
+            justify-content: flex-end;
+
+        }
+
+        .friend_message {
+            justify-content: flex-start;
+        }
+
+        .friend_message p {
+            background: #ccc;
+            text-align: left;
+        }
+
+
+        .friend_message p::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -12px;
+            width: 20px;
+            height: 10px;
+            background: #ccc;
+
+        }
+
+        .chat_box_input {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background: #e3e9ee;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat_box_input ion-icon:nth-child(1) {
+            padding: 2px;
+        }
+
+        .chat_box_input ion-icon {
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: #333;
+        }
+
+        .chat_box_input input {
+            position: relative;
+            width: 90%;
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            border-radius: 90px;
+            font-size: 1em;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="leftSide">
+
+            <!-- header -->
+            <div class="header">
+                <div class="userimg">
+                    <img src="https://storage.googleapis.com/pai-images/23187b0ff7a443eea8bc98612b737225.jpeg" alt=""
+                        class="cover">
+
+                </div>
+
+                <ul class="nav_icons">
+                    <li><ion-icon name="chatbox-outline"></ion-icon></li>
+                    <li><ion-icon name="hammer-outline"></ion-icon></li>
+
+                </ul>
+
+            </div>
+            <!-- search -->
+            <div class="search_chat">
+                <div>
+                    <input type="text" placeholder="Search people">
+                    <ion-icon name="search-outline"></ion-icon>
+                </div>
+            </div>
+            <!-- chat list -->
+            <div class="chat_list">
+
+                <div class="block active">
+                    <div class="imgbx">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0WXfVR1hLFOzSM9QMg5RESQSu4Ry_9D9Qg&usqp=CAU"
+                            alt="" class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Abdullah Ali</h4>
+                            <p class="time">10:56</p>
+                        </div>
+                        <div class="message_p">
+                            <p>Where are you we've been lookin for you</p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="block unread">
+                    <div class="imgbx">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgnolbgTyvTmb1UG4k4wRan-ci683humxaTVJARHvgHfyS9lCaH_aznsok6EEHaoB99OE&usqp=CAU"
+                            alt="" class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Soliman</h4>
+                            <p class="time">18:04</p>
+                        </div>
+                        <div class="message_p">
+                            <p>It was really good</p>
+                            <b>1</b>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="block">
+                    <div class="imgbx">
+                        <img src="https://i.pinimg.com/236x/d1/34/0e/d1340e1243397b26899a2f1816da6b4e--ethnic-fashion-folk-fashion.jpg"
+                            alt="" class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Yahya</h4>
+                            <p class="time">10:06</p>
+                        </div>
+                        <div class="message_p">
+                            <p>I was sitting there with some of my friends before you came!</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="block">
+                    <div class="imgbx">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7i_MLXXY7R7aNLSR1bohEEmXwdtAryyLC1QOc18N7bEGLVPAjk2qEk2QFRlwvoViX28U&usqp=CAU"
+                            alt="" class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Abudllkadir Ibrahim</h4>
+                            <p class="time">19:52</p>
+                        </div>
+                        <div class="message_p">
+                            <p>To be honest, I dont know anything about that</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <div class="imgbx">
+                        <img src="https://i.pinimg.com/originals/bb/b5/6b/bbb56bba1c15e8e08fd77617d581b1d9.jpg" alt=""
+                            class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Ali</h4>
+                            <p class="time">1:30</p>
+                        </div>
+                        <div class="message_p">
+                            <p>My mom called you yesterday </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <div class="imgbx">
+                        <img src="https://qph.cf2.quoracdn.net/main-qimg-fcf5b98a2a3f3c0b6022b4e3399e033d-lq" alt=""
+                            class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Yunus</h4>
+                            <p class="time">23:59</p>
+                        </div>
+                        <div class="message_p">
+                            <p>what happened?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="imgbx">
+                        <img src="https://external-preview.redd.it/ksSeMtpFw2r2bPu8A4goAMOvrzx3BzX10F42igniW4M.jpg?width=640&crop=smart&auto=webp&s=29acee4b4f9190f8d90563770d037ff2e4179a09"
+                            alt="" class="cover">
+                    </div>
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Sharaf</h4>
+                            <p class="time">22:28</p>
+                        </div>
+                        <div class="message_p">
+                            <p> am there waintg</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+        <div class="rightSide">
+            <div class="header">
+                <div class="img_text">
+                    <div class="userimg">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTt0WXfVR1hLFOzSM9QMg5RESQSu4Ry_9D9Qg&usqp=CAU"
+                            alt="" class="cover">
+
+                    </div>
+                    <h4>Abdullah Ali<br><span>Active</span></h4>
+                </div>
+
+                <ul class="nav_icons">
+                    <li><ion-icon name="chatbox-outline"></ion-icon></li>
+
+                    <li><ion-icon name="search-outline"></ion-icon></li>
+
+                </ul>
+            </div>
+
+            <!-- chat box goes here -->
+            <div class="chat_box">
+
+
+
+
+
+
+                <div class="message my_message">
+                    <p>Asalamo alikum<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Wa alikum asalam<br><span>12:02</span></p>
+                </div>
+
+                <div class="message my_message">
+                    <p>I want to know if you want a new laptop<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Ineed, I want a new one, it they are expensive here<br><span>12:03</span></p>
+                </div>
+
+
+
+                <div class="message my_message">
+                    <p>Asalamo alikum<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Wa alikum asalam<br><span>12:02</span></p>
+                </div>
+
+                <div class="message my_message">
+                    <p>I want to know if you want a new laptop<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Ineed, I want a new one, it they are expensive here<br><span>12:03</span></p>
+                </div>
+
+
+
+
+
+
+                <div class="message my_message">
+                    <p>Asalamo alikum<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Wa alikum asalam<br><span>12:02</span></p>
+                </div>
+
+                <div class="message my_message">
+                    <p>I want to know if you want a new laptop<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Ineed, I want a new one, it they are expensive here<br><span>12:03</span></p>
+                </div>
+
+
+
+
+
+                <div class="message my_message">
+                    <p>Asalamo alikum<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Wa alikum asalam<br><span>12:02</span></p>
+                </div>
+
+                <div class="message my_message">
+                    <p>I want to know if you want a new laptop<br><span>12:02</span></p>
+                </div>
+
+                <div class="message friend_message">
+                    <p>Ineed, I want a new one, it they are expensive here<br><span>12:03</span></p>
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <!-- chat input -->
+            <div class="chat_box_input">
+                <ion-icon name="document-attach-outline"></ion-icon>
+                <input type="text" placeholder="Write">
+                <ion-icon name="mic-circle-outline"></ion-icon>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
